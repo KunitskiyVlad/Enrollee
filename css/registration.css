@@ -1,0 +1,10 @@
+.form{
+	float: right;
+	padding: 5%;
+	margin: 3% 4% 3% 70%;
+	position: absolute;
+}
+.content{
+	margin-top: 5%;
+	padding: 25px;
+}
