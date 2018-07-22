@@ -1,5 +1,5 @@
 <?php
-	
+
 	class Router {
 		public static function start()
 		{
@@ -19,18 +19,18 @@
 				$action = $url[2];
 			}
 			
-			$controller_file = mb_strtolower($controller.'_controller');
+			$controller_class = mb_strtolower('controller_'.$controller);
 			$action = mb_strtolower('action_'.$action);
-			if(file_exists('controller/'.$controller_file.'.php') )
-			{
-				include 'controller/'.$controller_file.'.php';
-				$class = new $controller_file;
+			//if(file_exists('controller/'.$controller_class.'.php') )
+			//{
+				//include 'controller/'.$controller_class.'.php';
+				$class = new $controller_class;
 				$class->$action();
-			}
-			else 
-			{
-				Router::error();
-			}
+			//}
+			//else 
+			//{
+				//Router::error();
+			//}
 		}
 
 		public static function error()
@@ -39,10 +39,3 @@
 			die();
 		}
 	}
-
-
-/*	$url = explode('/', $_SERVER['REQUEST_URI']);
-	if($url[1] == 'registration')
-	require_once 'view/registration.php';
-else
-	echo "string";*/

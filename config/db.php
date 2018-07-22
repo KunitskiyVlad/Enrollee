@@ -1,11 +1,17 @@
 <?php 
+
+
 	class DBApi
 		{
-			public $pdo;
-			 function __construct($params)
+			public  $pdo;
+			 function __construct()
 			 
 			 {
-			 	
+			 	$params = array(
+				'dsn' => 'mysql:host=localhost;dbname=enrollee;charset=utf8' ,
+				'user' => 'root',
+				'pass' => '',
+				);
 			 	$this->connect($params);
 			 
 			 }
@@ -20,7 +26,7 @@
 			    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
 			    			];
 
-				$this->pdo = new PDO($dsn, $user, $pass, $options);
+				return $this->pdo = new PDO($dsn, $user, $pass, $options);
 				
 				}
 				
@@ -32,7 +38,7 @@
 				
 			}
 
-			public function select($tableName)
+			static function select($tableName)
 			{
 				$sql = 'select * from '.$tableName;
 				$row = $this->pdo->query($sql);
@@ -55,7 +61,7 @@
 			$sql = "INSERT INTO ".$tableName.' '.$set;
 			$this->pdo->query($sql);
 			}
-			public function update($tableName, $values, $condition)
+			static function update($tableName, $values, $condition)
 			{
 				$set ='';
 				foreach ($values as $key => $value) {
@@ -75,7 +81,7 @@
 			//echo $sql;
 			}
 
-			public function delete($tableName, $condition)
+			static function delete($tableName, $condition)
 			{
 
 			$where='';
@@ -86,6 +92,34 @@
 			$sql = "DELETE FROM ".$tableName.' '.' WHERE '.$where;
 			$this->pdo->query($sql);
 			//echo $sql;
+			}
+
+			public function selectOne($tableName, $condition, $key)
+			{
+			$where='';
+		    //var_dump( $condition);
+			$where = $where.' '.$key.' = '."'".$condition." '";
+			$sql = "SELECT *FROM ".$tableName.' '.' WHERE '.$where;
+			//echo $sql;
+			$row =$this->pdo->query($sql);
+			while($result = $row->fetchALL(PDO::FETCH_ASSOC)){
+				//print_r($result);
+                return($result);
+            }
+			}
+
+			public function Count($tableName, $condition, $key)
+			{
+			$where='';
+		    //var_dump( $condition);
+			$where = $where.' '.$key.' = '."'".$condition." '";
+			$sql = " SELECT COUNT(*) FROM ".$tableName.' '.' WHERE '.$where;
+			//echo $sql;
+			$row =$this->pdo->query($sql);
+			while($result = $row->fetchColumn()){
+				//print_r($result);
+                return($result);
+            }
 			}
 
 		}

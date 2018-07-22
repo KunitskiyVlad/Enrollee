@@ -1,5 +1,7 @@
 <?php
-	class home_controller extends controller
+	
+
+	class controller_home extends controller
 	{
 		public function action_index()
 		{

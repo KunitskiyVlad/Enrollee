@@ -1,10 +1,17 @@
 .form{
 	float: right;
-	padding: 5%;
-	margin: 3% 4% 3% 70%;
+	padding: 50px;
+	margin: 3% 4% 0 70%;
 	position: absolute;
+	background-color: #e8e8e8; 
 }
 .content{
-	margin-top: 5%;
+	margin-top: 0;
 	padding: 25px;
+}
+.error-field{
+	color: #dc3545;
+}
+.error-field input{
+	border-color: #dc3545;
 }
