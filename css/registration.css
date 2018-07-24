@@ -15,3 +15,10 @@
 .error-field input{
 	border-color: #dc3545;
 }
+.cabinet{
+	float:left;
+	padding: 50px;
+	margin: 3% 75% 0 -14%;
+	position: absolute;
+	background-color: #e8e8e8; 
+}
