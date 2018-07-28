@@ -1,34 +1,6 @@
 $(document).ready(function(){
 	 
-	$('i').click(function(){
-		
-		var id = $(this).attr('id')
-		var field = id.substr(9)
-		if($(this).attr('class') == 'fas fa-caret-up')
-		{	
-			var order = 'ASC'
-			$(this).removeClass('fas fa-caret-up') 
-			$(this).addClass('fas fa-caret-down')
-
-		}
-		else { 
-			if ($(this).attr('class') == 'fas fa-caret-down')
-			{
-				var order = 'DESC'
-				$(this).removeClass('fas fa-caret-down') 
-				$(this).addClass('fas fa-caret-up')
-				//location.reload();
-
-			}
-}
-	$.ajax(
-		{
-			url:'/home',
-			method:'POST',
-			data:{field:field, order:order},
-			
-    })
-	})
+	
 	$(':checkbox').click(function()
 	{	if($(this).prop('checked')){
 		var parent = $(this).parent().parent()
@@ -46,7 +18,7 @@ $(document).ready(function(){
 
 		})
 	$('#change').click(function()
-	{	//alert($('input').attr('readonly'))
+	{	
 		var ajaxData = ''
 		data ={}
 		$(':input:not([readonly])').not(':checkbox, :button').each(function()
@@ -55,13 +27,10 @@ $(document).ready(function(){
 			//data = new Object()
 			var key = $(this).attr('name')
 			data[key] = $(this).val()
-		/*for (var key in data)
-		{
-			ajaxData = ajaxData + key +data[key] 
-		}*/
+		
 		return data
 		})
-		//alert(ajaxData.serialize())
+		
 		$.ajax(
 		{
 			url:'/cabinet',

@@ -3,32 +3,43 @@
 <table class="table table-striped table-hover">Список
   <thead class="thead-primary">
     <tr class="table-primary">
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+    <?php foreach ($date['SortButton']  as $key => $named){ 
+      foreach ($named as $href) {
+      
+      ?>
+      <th scope="col" ><a href=?sortby=<?=$key?>&order=<?=$href['sort']?>&page=<?=$date['page']['current_page'] ?><?=$date['search']?> ><i class="<?=$href['image']?>" id="order by name"></i></a><?=$date['theads'][$key]?></th>
+       
+      
+       <?php }} ?>
+      
     </tr>
   </thead>
   <tbody>
+  
+  <?php foreach ($date['users']  as $value){ ?>
+      <tr>
+         <td> <?=$value['name']?></td>
+         <td> <?=$value['surname']?></td>
+         <td> <?=$value['mark']?></td>
+         <td> <?=$value['birth']?></td>
+      
+      </tr>
+  
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
+        <?php } ?>
+</tbody>
 </table>
+<div class="container">
+<div class="row">
+<div class="col-md-10 col-sm-12 col-xs-12 my-col text-center">
+<?php foreach ($date['page'] as $key => $page) { ?>
+ 
+
+<a href=?sortby=<?=$date['SelectSort']['field']?>&order=<?=$date['SelectSort']['order']?>&page=<?=$page?> ><?=$page?></a>
+<?php } ?>
 </div>
-</body>
+</div>
+</div>
+</tr>
+</div>
+</body> 

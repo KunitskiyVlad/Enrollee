@@ -38,10 +38,11 @@
 				
 			}
 
-			static function select($tableName)
+			public function select($tableName)
 			{
 				$sql = 'select * from '.$tableName;
 				$row = $this->pdo->query($sql);
+				//echo $sql;
 				while($result = $row->fetchALL(PDO::FETCH_ASSOC)){
 				//print_r($result);
                 return($result);
@@ -61,7 +62,7 @@
 			$sql = "INSERT INTO ".$tableName.' '.$set;
 			$this->pdo->query($sql);
 			}
-			static function update($tableName, $values, $condition)
+			public function update($tableName, $values, $condition, $keys)
 			{
 				$set ='';
 				foreach ($values as $key => $value) {
@@ -72,13 +73,11 @@
 			$set = 'SET '.$set;
 			$set = rtrim($set,',');
 			$where='';
-			foreach ($condition as $key => $value) {
+			$where = $where.' '.$keys.' = '."'".$condition." '";
 				
-				$where = $where.' '.$key.' = '."'".$value." '";
-				}
 			$sql = "UPDATE ".$tableName.' '.$set.' WHERE '.$where;
 			$this->pdo->query($sql);
-			//echo $sql;
+			echo $sql;
 			}
 
 			static function delete($tableName, $condition)
@@ -87,7 +86,7 @@
 			$where='';
 			foreach ($condition as $key => $value) {
 				
-				$where = $where.' '.$key.' = '."'".$value." '";
+				$where  = $where.' '.$key.' = '."'".$value." '";
 				}
 			$sql = "DELETE FROM ".$tableName.' '.' WHERE '.$where;
 			$this->pdo->query($sql);
@@ -108,12 +107,16 @@
             }
 			}
 
-			public function Count($tableName, $condition, $key)
+			public function Count($tableName, $condition = null, $key = null)
 			{
 			$where='';
 		    //var_dump( $condition);
-			$where = $where.' '.$key.' = '."'".$condition." '";
-			$sql = " SELECT COUNT(*) FROM ".$tableName.' '.' WHERE '.$where;
+		    $sql = " SELECT COUNT(*) FROM ".$tableName;
+		    if(isset($condition) && isset($key))
+		    {
+			$where = ' WHERE'.$key.' = '."'".$condition." '";
+			$sql = $sql.$where;
+			}
 			//echo $sql;
 			$row =$this->pdo->query($sql);
 			while($result = $row->fetchColumn()){
@@ -121,5 +124,22 @@
                 return($result);
             }
 			}
-
+			public function Sort($tableName, $condition, $order, $start =null, $how = null)
+			{
+				$sql = " SELECT * FROM ".$tableName.' '.' ORDER BY '. $condition.' '.$order;
+				//echo $sql;
+				$Limit ='';
+				if(isset($start) && isset($how))
+				{
+					$Limit = $Limit.' LIMIT '.$start.', '.$how;
+					$sql=$sql.$Limit;
+					//echo $sql;
+				}
+				//echo $sql;
+				$row =$this->pdo->query($sql);
+				while($result = $row->fetchALL(PDO::FETCH_ASSOC)){
+				//print_r($result);
+                return($result);
+            }
+			}
 		}
