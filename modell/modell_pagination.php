@@ -7,6 +7,7 @@
 	{
 		public $buttons = array();
 		public $data = array();
+		public $pageLimit = array();
 		public function __construct()
 		{
 			parent::__construct();
@@ -16,8 +17,8 @@
 		{
 			extract($SelectSort);
 			$count = $this->bd->Count('users');
-			$needList = 15;//кол-во записей которое выводим
-			$allPage = ceil($count/$needList);//сколько будет страниц, всегда округляя в большую сторону
+			$this->pageLimit['needList'] = 15;//кол-во записей которое выводим
+			$allPage = ceil($count/$this->pageLimit['needList']);//сколько будет страниц, всегда округляя в большую сторону
 			//echo $allPage;
 			
 			
@@ -28,14 +29,15 @@
 
 			if(isset($_GET['page']))
 			{
-				$page = $_GET['page'];
+				$page = (int)$_GET['page'];
 				$this->buttons['current_page'] = $page;
 				$page = $page-1;
 
-			} else{
+			} else
+			{
 			$page = 0;
 			$this->buttons['current_page'] = 1;
-		}
+			}
 			if( ($allPage -$this->buttons['current_page']) > 2 and ($this->buttons['current_page']-2) >= 1)
 			{	
 				$this->buttons['previous_page'] = $this->buttons['current_page'] -1;
@@ -93,9 +95,9 @@
 		{
 			$this->buttons['current_page'] = 1;
 		}
-			$start = 15*$page;//из это формулы находим с какой записи начинать выводить список
-			$this->data =$this->bd->Sort('users',$field, $order,$start, $needList);
-			return $this->data;
+			$this->pageLimit['start'] = 15*$page;//из это формулы находим с какой записи начинать выводить список
+			//$this->data =$this->bd->Sort('users',$field, $order,$start, $needList);
+			return $this->pageLimit;
 		}
 		
 	}

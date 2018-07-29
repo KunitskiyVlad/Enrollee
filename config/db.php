@@ -114,7 +114,7 @@
 		    $sql = " SELECT COUNT(*) FROM ".$tableName;
 		    if(isset($condition) && isset($key))
 		    {
-			$where = ' WHERE'.$key.' = '."'".$condition." '";
+			$where = ' WHERE '.$key.' = '."'".$condition." '";
 			$sql = $sql.$where;
 			}
 			//echo $sql;
@@ -124,10 +124,19 @@
                 return($result);
             }
 			}
-			public function Sort($tableName, $condition, $order, $start =null, $how = null)
+			public function Sort($tableName, $condition, $order, $start =null, $how = null ,$like=null, $conditionLike=null)
 			{
-				$sql = " SELECT * FROM ".$tableName.' '.' ORDER BY '. $condition.' '.$order;
+				$sql = " SELECT * FROM ".$tableName.' ';
+
+				if(isset($like) && isset($conditionLike))
+				{
+					$search = ' WHERE '.$conditionLike.' LIKE '.'\'%'.$like.'%\' ';
+					$sql = $sql.$search;
+				}
+				
+				$order=' ORDER BY '. $condition.' '.$order;
 				//echo $sql;
+				$sql = $sql.$order;
 				$Limit ='';
 				if(isset($start) && isset($how))
 				{

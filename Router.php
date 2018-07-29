@@ -6,11 +6,12 @@
 			$controller ='home';
 			$action = 'index';
 			$url = explode('/',$_SERVER['REQUEST_URI']);
-			
-			if(!empty($url[1]))
+			$url = parse_url($_SERVER['REQUEST_URI']);
+			//echo($url['path']);
+			if(!empty($url['path']) && $url['path'] != '/')
 			
 			{
-				$controller = $url[1];
+				$controller = str_replace('/', '', $url['path']);
 			}
 			
 			if(!empty($url[2]))

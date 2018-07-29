@@ -22,3 +22,35 @@
 	position: absolute;
 	background-color: #e8e8e8; 
 }
+.icon{
+	float: right;
+}
+.bubble 
+{
+display: none;
+margin: -10px 0 0 30.2%;
+position: absolute;
+width: 160px;
+height: 178px;
+padding: 5px;
+background: #555759;
+-webkit-border-radius: 0px;
+-moz-border-radius: 0px;
+border-radius: 0px;
+color:white;
+}
+
+.bubble:after 
+{
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 0 6px 5px;
+border-color: #555759 transparent;
+display: block;
+width: 0;
+z-index: 1;
+top: -5px;
+left: 20px;
+}
+

@@ -1,8 +1,8 @@
 <body>
 <div class="content">
 <table class="table table-striped table-hover">Список
-  <thead class="thead-primary">
-    <tr class="table-primary">
+  <thead class="table-info">
+    <tr >
     <?php foreach ($date['SortButton']  as $key => $named){ 
       foreach ($named as $href) {
       
@@ -21,7 +21,7 @@
          <td> <?=$value['name']?></td>
          <td> <?=$value['surname']?></td>
          <td> <?=$value['mark']?></td>
-         <td> <?=$value['birth']?></td>
+         <td> <?=$value['age']?></td>
       
       </tr>
   

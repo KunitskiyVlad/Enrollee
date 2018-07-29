@@ -22,6 +22,6 @@
         <a class="navbar-brand" rel="home" href="home" title="Главная"><i class="fas fa-home"></i>На главную</a>
     </div>
 </nav>
-<?php echo include $content?>
+<?php echo include $content.'.php'?>
 </body>
 </html>

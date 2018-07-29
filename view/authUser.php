@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 <link rel="stylesheet" href="../css/registration.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
-	<title></title>
+    <title></title>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-	<div class="navbar-header">
+    <div class="navbar-header">
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -21,7 +21,7 @@
     </div>
 
     <div class="collapse navbar-collapse navbar-ex1-collapse">
-		<div class="col-sm-3 col-md-3 pull-right">
+        <div class="col-sm-3 col-md-3 pull-right">
         <form class="navbar-form" role="search" action="" method ="GET">
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Search" name="search" id="srch-term">
@@ -31,41 +31,16 @@
         </div>
         </form>
         </div>
-<i class="far fa-user icon" data-toggle="modal" data-target="#ModalUser"></i>
+<i class="far fa-user icon" data-toggle="modal" data-target="#ModalUser" id="user"></i>
 
     </div>
 
 </nav>
-<div class="modal fade" id="ModalUser" tabindex="-1" role="dialog" aria-lebelledby="ModalUser" aria-hidden="true">
-<div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Авторизация</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="container-fluid">
-                <form>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" class="form-control" id="email" aria-describdby="emailHelp" placeholder="Email">
-                        <span class="text-danger" id="error_email"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="pass">Пароль</label>
-                        <input type="password" name="pass" class="form-control" id="pass" placeholder="Пароль">
-                        <span class="text-danger" id="error_pass"></span>
-                    </div>
-                    <button type="button" class="btn btn-light"><a href="/registration">Регистрация</a></button>
-                    <button type="button" class="btn btn-success" id='auth'>Отправить</button>
-                    
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="bubble">
+  <p class="text-center"> &nbsp;<?=$date['UserData']['name'] ?>&nbsp;<?=$date['UserData']['surname'] ?></p>
+    <div class="dropdown-divider"></div>
+    <p class="text-center"><a href="/cabinet">Настройки</a></p>
+    <a><button class="btn btn-default" type="button" id='logout'>Выйти</button></a>
 </div>
 <?php echo include $content.'.php'?>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

@@ -30,7 +30,7 @@
 				 $this->error_message['error_name'] = 'Имя слишком длинное';
 				return $this->have_error = true;
 			}
-			elseif (!preg_match('/^[a-zа-яё]*$/i', $this->data['name'] )) {
+			elseif (!preg_match('/^[a-zа-яё]+$/iu', $this->data['name'] )) {
 				 $this->error_message['error_name'] = 'Допустим ввод только букв';
 				return $this->have_error = true;
 			}
@@ -105,7 +105,7 @@
 				 $this->error_message['error_surname'] = 'Фамилия слишком длинная';
 				return $this->have_error = true;
 			}
-			elseif (!preg_match('/^[a-zа-яё]*$/i', $this->data['surname'] )) {
+			elseif (!preg_match('/^[a-zа-яё]*$/iu', $this->data['surname'] )) {
 				 $this->error_message['error_surname'] = 'Допустим ввод только букв';
 				return $this->have_error = true;
 			}
@@ -131,15 +131,30 @@
 		public function checkDate()
 		{
 			$array= explode('-', $this->data['birth']);
-				if(checkdate($array[0],$array[1], $array[2]))
+				if(!checkdate($array[1],$array[2], $array[0]))
 				{
 					 $this->error_message['error_date'] = 'Неверно указаный формат даты';
 					 return $this->have_error = true;
 				}
 				else
-					return true;
+				{
+				  $birthday_timestamp = strtotime($this->data['birth']);
+				  $age = date('Y') - date('Y', $birthday_timestamp);
+				  if (date('md', $birthday_timestamp) > date('md')) 
+				  {
+				    $age--;
+				  }
+				  if($age > 14 and $age < 75)
+				  {
+				  	return true;
+				  }
+				  else
+				  {
+				  	$this->error_message['error_date'] = 'Недопустимы возраст';
+					return $this->have_error = true;
+				  }
+				}
 		}
-
 		public function writeError()
 	  			{
 	  					echo json_encode($this->error_message);

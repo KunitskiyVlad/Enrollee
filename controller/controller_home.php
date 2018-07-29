@@ -3,8 +3,25 @@
 
 	class controller_home extends controller
 	{
+		public $params = array();
 		public function action_index()
-		{	require_once('./modell/modell_list.php');
+		{	$TemplatePage = 'template';
+			if(isset($_COOKIE['user']))
+			{
+				include_once './modell/modell_user.php';
+				$user = new user;
+				if($user)
+				{
+				$TemplatePage = 'authUser';
+				
+				$data['UserData']['name'] = $user->user[0]['name'];
+				$data['UserData']['surname'] = $user->user[0]['surname'];
+			}
+			}
+			
+			
+			$ContentPage ='home';
+			require_once('./modell/modell_list.php');
 			
 			$modell = new modell_list;
 			require_once('./modell/modell_pagination.php');
@@ -13,19 +30,40 @@
 
 			
 			$data['SelectSort'] = $modell->SelectSort();
+			$this->params['field'] = $data['SelectSort']['field'];
+			$this->params['order'] = $data['SelectSort']['order'];
 			$data['SortButton'] = $modell->SortButton;
-			//print_r($data['SelectSort']);
 			$data['theads'] = $modell->theads;
-			$data['users'] = $pagination->ShowData($data['SelectSort']);
+			$data['pageLimit'] = $pagination->ShowData($data['SelectSort']);
+			$this->params['start'] = $data['pageLimit']['start'];
+			$this->params['needList'] = $data['pageLimit']['needList'];
 			$data['page'] = $pagination->buttons;
 			if(isset($_GET['search']))
 			{
-				$modell->search();
 				
-				$data['users'] = $modell->result;
+				
+				$data['searchResult'] = $modell->search();
+				$data['search'] = $modell->search;
+				$this->params['like'] = $data['searchResult']['search'];
+				$this->params['conditionLike'] = $data['searchResult']['key'];
 
 			}
+			else
+			{
 			$data['search'] = $modell->search;
-			$this->view->generate('home.php','template.php', $data);
+			
+			}
+			$data['users'] = $modell->ShowTable($this->params);
+			if(isset($_GET['search']))
+			{	
+				$data['users'] = $modell->MarkerSearch($data['users']);
+			}
+			if(isset($_POST['logout']))
+			{	
+				
+				$user->Logout();
+			}
+			
+			$this->view->generate($ContentPage,$TemplatePage, $data);
 		}
 	}

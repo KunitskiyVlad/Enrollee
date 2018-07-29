@@ -18,8 +18,9 @@
 		    'name' =>  'Имя',
 		    'surname' =>  'Фамилия',
 		    'mark' =>  'Оценка',
-		    'date' =>  'Дата рождения',
+		    'age' =>  'Возраст',
 		);
+		public $searchResult = null;
 
 		public function SelectSort()
 		{	
@@ -64,14 +65,55 @@
 				if (preg_match("/$search/", mb_strtolower($value[$key])))
 				{	$marker = '<span style="background-color: #17d657">'.$search.'</span>';
 					$i++;
-					$string = str_replace($search, $marker, mb_strtolower($value[$key]));
-					$string = mb_convert_case($string, MB_CASE_TITLE, "UTF-8");
-					$value[$key] = $string;
-					$this->result[$i] = $value;
+					return $this->searchResult = array(
+						'key' =>$key,
+						'search' =>$search
+						);
+					//$string = str_replace($search, $marker, mb_strtolower($value[$key]));
+					//$string = mb_convert_case($string, MB_CASE_TITLE, "UTF-8");
+					//$value[$key] = $string;
+					//$this->result[$i] = $value;
 				}
 				
 			}
 		}
 			
 	}
+
+	public function MarkerSearch($user)
+	{
+		$i = 0;
+		$search = $this->searchResult['search'];
+		foreach ($user as  $value) 
+			{
+				foreach ($value as $key => $mass) {
+					//print_r($value[$key]);
+					//echo $value[$key];
+				if (preg_match("/$search/", mb_strtolower($value[$key])))
+				{	$marker = '<span style="background-color: #17d657">'.$search.'</span>';
+					$i++;
+					$string = str_replace($search, $marker, mb_strtolower($value[$key]));
+					
+					$value[$key] = $string;
+					//print_r($value);
+					$this->result[$i] = $value;
+					
+				}
+				
+			}
+		}
+		return $this->result;
+	}
+		public function ShowTable($params)
+		{	extract($params);
+			if($this->searchResult != null)
+			{
+			
+			return $this->bd->Sort('users',$field, $order,$start, $needList, $like, $conditionLike);
+			}
+			else
+			{
+				return $this->bd->Sort('users',$field, $order, $start,$needList);
+			}
+		}
 }

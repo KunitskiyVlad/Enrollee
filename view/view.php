@@ -8,6 +8,6 @@
 		
 		function generate($content, $template, $date = null)
 		{
-			include $template;
+			include $template.'.php';
 		}
 	}
