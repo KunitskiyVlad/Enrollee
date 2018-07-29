@@ -21,13 +21,16 @@
 		    'age' =>  'Возраст',
 		);
 		public $searchResult = null;
+		public $error = null;
 
 		public function SelectSort()
 		{	
 			
 			if(isset($_GET['sortby']) && isset($_GET['order']))
 			{
+				if($_GET['sortby'] == 'name' or $_GET['sortby'] == 'surname' or $_GET['sortby'] == 'mark' or $_GET['sortby'] == 'age' )
 				$this->SelectSort['field'] =$_GET['sortby'];
+				if($_GET['order'] == 'desc' or $_GET['order'] == 'asc')
 				$this->SelectSort['order'] = $_GET['order'];
 			}
 			$i = 0;
@@ -55,17 +58,23 @@
 
 		public function search()
 		{
+			if(strlen($_GET['search']) < 2)
+			{
+				$this->error['search'] = 'Запрос слишком короткий';
+				return false;
+			}
+			else
+			{
 			$search = mb_strtolower($_GET['search']);
-			$this->search = '&search='.$_GET['search'];
+			$this->search = $search;
 			$array = $this->bd->select('users');
 			$i=0;
 			foreach ($array as  $value) 
 			{
 				foreach ($value as $key => $mass) {
 				if (preg_match("/$search/", mb_strtolower($value[$key])))
-				{	$marker = '<span style="background-color: #17d657">'.$search.'</span>';
-					$i++;
-					return $this->searchResult = array(
+				{
+						return $this->searchResult = array(
 						'key' =>$key,
 						'search' =>$search
 						);
@@ -77,13 +86,19 @@
 				
 			}
 		}
-			
+	}
+		if($this->searchResult == null)
+		{	
+			$this->error['search'] = 'По вашему запросу ничего не найдено';
+			return false;
+		}	
 	}
 
 	public function MarkerSearch($user)
 	{
 		$i = 0;
 		$search = $this->searchResult['search'];
+		
 		foreach ($user as  $value) 
 			{
 				foreach ($value as $key => $mass) {
@@ -106,9 +121,9 @@
 	}
 		public function ShowTable($params)
 		{	extract($params);
-			if($this->searchResult != null)
+			if(!empty($this->searchResult))
 			{
-			
+
 			return $this->bd->Sort('users',$field, $order,$start, $needList, $like, $conditionLike);
 			}
 			else

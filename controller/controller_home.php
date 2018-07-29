@@ -14,8 +14,8 @@
 				{
 				$TemplatePage = 'authUser';
 				
-				$data['UserData']['name'] = $user->user[0]['name'];
-				$data['UserData']['surname'] = $user->user[0]['surname'];
+				$data['UserData']['name'] = $user->user['name'];
+				$data['UserData']['surname'] = $user->user['surname'];
 			}
 			}
 			
@@ -38,15 +38,19 @@
 			$this->params['start'] = $data['pageLimit']['start'];
 			$this->params['needList'] = $data['pageLimit']['needList'];
 			$data['page'] = $pagination->buttons;
+
 			if(isset($_GET['search']))
 			{
 				
 				
 				$data['searchResult'] = $modell->search();
 				$data['search'] = $modell->search;
+
+				if($data['searchResult'] == true)
+				{
 				$this->params['like'] = $data['searchResult']['search'];
 				$this->params['conditionLike'] = $data['searchResult']['key'];
-
+				}
 			}
 			else
 			{
@@ -54,16 +58,17 @@
 			
 			}
 			$data['users'] = $modell->ShowTable($this->params);
-			if(isset($_GET['search']))
+			if(isset($_GET['search']) && $data['searchResult'] == true)
 			{	
 				$data['users'] = $modell->MarkerSearch($data['users']);
+
 			}
 			if(isset($_POST['logout']))
 			{	
 				
 				$user->Logout();
 			}
-			
+			$data['error_search'] = $modell->error;
 			$this->view->generate($ContentPage,$TemplatePage, $data);
 		}
 	}

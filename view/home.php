@@ -1,5 +1,10 @@
 <body>
 <div class="content">
+<div class="text-center">
+  <H4>
+    <?=$date['error_search']['search'] ?>
+  </H4>
+</div>
 <table class="table table-striped table-hover">Список
   <thead class="table-info">
     <tr >
@@ -16,7 +21,7 @@
   </thead>
   <tbody>
   
-  <?php foreach ($date['users']  as $value){ ?>
+  <?php foreach ($date['users']  as $key => $value){ ?>
       <tr>
          <td> <?=$value['name']?></td>
          <td> <?=$value['surname']?></td>

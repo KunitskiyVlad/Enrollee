@@ -50,18 +50,31 @@
 			}
 
 			public function insert($tableName, $values)
-			{
+			{  
+				$i =1;
+				$sql = "INSERT INTO ".$tableName.
 				$set ='';
+				$data = '';
 				foreach ($values as $key => $value) {
+				$data =$data.' '.'?'.',';
+				$set = $set.' '.$key.',';
 				
-				$set = $set.' '.$key.' = '."'".$value." ',";
 				}
-			
-			$set = 'SET '.$set;
 			$set = rtrim($set,',');
-			$sql = "INSERT INTO ".$tableName.' '.$set;
-			$this->pdo->query($sql);
+			$data =rtrim($data, ',');
+			$set ='('.$set.') ';
+			$data ='VALUES ('.$data.') ';
+			$sql = $sql.' '.$set.$data;
+			$stmt = $this->pdo->prepare($sql);
+			foreach ($values as $key => $value) 			
+			{
+				$stmt->bindValue($i,$value);
+				$i++;
 			}
+			//echo $sql;
+			$stmt->execute();
+			}
+
 			public function update($tableName, $values, $condition, $keys)
 			{
 				$set ='';
@@ -92,16 +105,18 @@
 			$this->pdo->query($sql);
 			//echo $sql;
 			}
-
+			
 			public function selectOne($tableName, $condition, $key)
 			{
 			$where='';
 		    //var_dump( $condition);
-			$where = $where.' '.$key.' = '."'".$condition." '";
+			$where = $where.' '.$key.' =  ?';
 			$sql = "SELECT *FROM ".$tableName.' '.' WHERE '.$where;
+			$stmt = $this->pdo->prepare($sql);
 			//echo $sql;
-			$row =$this->pdo->query($sql);
-			while($result = $row->fetchALL(PDO::FETCH_ASSOC)){
+			$stmt->bindParam(1,$condition);
+			$row =$stmt->execute();
+			while($result = $stmt->fetch(PDO::FETCH_ASSOC)){
 				//print_r($result);
                 return($result);
             }
@@ -124,13 +139,14 @@
                 return($result);
             }
 			}
+
 			public function Sort($tableName, $condition, $order, $start =null, $how = null ,$like=null, $conditionLike=null)
 			{
-				$sql = " SELECT * FROM ".$tableName.' ';
+				$sql = " SELECT name, surname, mark, age FROM ".$tableName.' ';
 
 				if(isset($like) && isset($conditionLike))
 				{
-					$search = ' WHERE '.$conditionLike.' LIKE '.'\'%'.$like.'%\' ';
+					$search = ' WHERE '.$conditionLike.' LIKE '.'?';
 					$sql = $sql.$search;
 				}
 				
@@ -145,8 +161,16 @@
 					//echo $sql;
 				}
 				//echo $sql;
-				$row =$this->pdo->query($sql);
-				while($result = $row->fetchALL(PDO::FETCH_ASSOC)){
+				//$row =$this->pdo->query($sql);
+				$stmt = $this->pdo->prepare($sql);
+				if(isset($like) && isset($conditionLike))
+				{
+				
+				$like = '%'.$like.'%';
+				$stmt->bindParam(1,$like);
+				}
+				$stmt->execute();
+				while($result = $stmt->fetchALL(PDO::FETCH_ASSOC)){
 				//print_r($result);
                 return($result);
             }

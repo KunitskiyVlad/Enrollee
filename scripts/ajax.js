@@ -122,8 +122,7 @@ $(document).ready(function(){
 	})
 	$(document).mouseup(function (e){ 
 		var div = $(".bubble"); 
-		if (!div.is(e.target) /
-		    && div.has(e.target).length === 0) { 
+		if (!div.is(e.target) && div.has(e.target).length === 0) { 
 			div.hide(); 
 		}
 	}); 
