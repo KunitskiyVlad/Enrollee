@@ -64,7 +64,19 @@ $(document).ready(function(){
 			method:'POST',
 			data:data,
 			
-    })
+    }).done(function(response)
+				{
+					var data = JSON.parse(response)
+					if(data == true){
+						location.reload();
+					} else{
+					for(var key in data){
+					
+					$('#'+key).text(data[key])
+					var id = $('#'+key).parent().addClass('error-field')
+				
+					}
+					}
 	}) 
 	$('#submit').click(function()
 	{	var name = $('#name').val()
@@ -113,11 +125,9 @@ $(document).ready(function(){
 			data:{logout:logout},
 			
     }).done(function(response)
-{
+	{
 	location.reload();
-
-	
-}
+	}
     )
 	})
 	$(document).mouseup(function (e){ 
@@ -139,4 +149,4 @@ $(document).ready(function(){
 		})
 			}
 			)
-})
+})})

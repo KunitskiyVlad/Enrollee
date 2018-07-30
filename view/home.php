@@ -37,11 +37,16 @@
 <div class="container">
 <div class="row">
 <div class="col-md-10 col-sm-12 col-xs-12 my-col text-center">
-<?php foreach ($date['page'] as $key => $page) { ?>
+<ul class="pagination">
+ 
+<li><a href=?sortby=<?=$date['SelectSort']['field']?>&order=<?=$date['SelectSort']['order']?>&page=<?=$date['page']['current_page'] -1?> >Назад</a></li>
+<?php foreach ($date['page'] as $key => $page ) { ?>
  
 
-<a href=?sortby=<?=$date['SelectSort']['field']?>&order=<?=$date['SelectSort']['order']?>&page=<?=$page?> ><?=$page?></a>
+<li><a href=?sortby=<?=$date['SelectSort']['field']?>&order=<?=$date['SelectSort']['order']?>&page=<?=$page?> class=<?=$page['active']?> ><?=$page?></a></li>
 <?php } ?>
+<li><a href=?sortby=<?=$date['SelectSort']['field']?>&order=<?=$date['SelectSort']['order']?>&page=<?=$date['page']['current_page'] +1?> >Вперед</a></li>
+</ul>
 </div>
 </div>
 </div>

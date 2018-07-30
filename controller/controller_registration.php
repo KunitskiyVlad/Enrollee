@@ -5,7 +5,7 @@
 	{
 		public function action_index()
 		{
-			include'./modell/modell_user.php';
+			//include'./modell/modell_user.php';
 			if(!empty($_COOKIE['user']))
 			{
 				header('Location:/');
@@ -19,7 +19,7 @@
 				$user['birth'] = (string)htmlspecialchars(trim($_POST['birth']));
 				$user['sex'] = (string)htmlspecialchars(trim($_POST['sex']));
 				$user['email'] = (string)htmlspecialchars(trim($_POST['email']));
-				$registration = new user;
+				$registration = new modell_user;
 				$registration->CheckDataUser($user);	
 				
 			}

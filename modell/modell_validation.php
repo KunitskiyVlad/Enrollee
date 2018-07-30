@@ -1,6 +1,6 @@
 <?php
 
-	class validation extends modell
+	class modell_validation extends modell
 	{
 		public $error_message = array();
 		public $data = array();

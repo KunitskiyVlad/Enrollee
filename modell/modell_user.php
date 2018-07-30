@@ -1,6 +1,6 @@
 <?php
 	
-	class user extends modell
+	class modell_user extends modell
 	{	public $user = array();
 		public $chengeData = array();
 		
@@ -8,7 +8,7 @@
 		{
 			parent::__construct();
 			if(isset($_COOKIE['user'])){
-			if(user::CheckCookie())
+			if(modell_user::CheckCookie())
 			{
 				$this->user = $this->bd->selectOne('users', htmlspecialchars($_COOKIE['user']) , 'hash');
 			}
@@ -34,7 +34,7 @@
 			{
 				$this->chengeData['mark'] =htmlspecialchars(trim($_POST['mark']));
 			}
-			$this->bd->update('users',$this->chengeData, $_COOKIE['email'], 'email');
+			return $this->bd->update('users',$this->chengeData, $_COOKIE['user'], 'hash');
 		}
 		public function Logout()
 		 {
@@ -58,9 +58,10 @@
 		 	$input = htmlspecialchars(trim($_POST['email']));
 		 	if($this->user = $this->bd->selectOne('users', $input, 'email'))
 		 	{	
+
 		 		$pass = htmlspecialchars($_POST['pass']);
 		 		foreach ($this->user as $key => $value) {
-		 			$this->user = $value;
+		 			//$this->user = $value;
 		 			
 		 		}
 		 		//print_r($user);
@@ -103,8 +104,8 @@
 			foreach ($input as $key => $value) {
 					$this->user[$key] = $value;
 				}	
-			include 'modell_validation.php';
-			$validation = new validation($this->user);
+			//include 'modell_validation.php';
+			$validation = new modell_validation($this->user);
 			$validation->corectName(); 
 			$validation->CheckSurname();
 			$validation->checkPass();

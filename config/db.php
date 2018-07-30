@@ -90,7 +90,7 @@
 				
 			$sql = "UPDATE ".$tableName.' '.$set.' WHERE '.$where;
 			$this->pdo->query($sql);
-			echo $sql;
+			//echo $sql;
 			}
 
 			static function delete($tableName, $condition)

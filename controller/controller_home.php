@@ -8,8 +8,8 @@
 		{	$TemplatePage = 'template';
 			if(isset($_COOKIE['user']))
 			{
-				include_once './modell/modell_user.php';
-				$user = new user;
+				
+				$user = new modell_user;
 				if($user)
 				{
 				$TemplatePage = 'authUser';
@@ -21,10 +21,9 @@
 			
 			
 			$ContentPage ='home';
-			require_once('./modell/modell_list.php');
+			
 			
 			$modell = new modell_list;
-			require_once('./modell/modell_pagination.php');
 			$pagination = new modell_pagination;
 			
 
@@ -68,6 +67,7 @@
 				
 				$user->Logout();
 			}
+			
 			$data['error_search'] = $modell->error;
 			$this->view->generate($ContentPage,$TemplatePage, $data);
 		}

@@ -4,12 +4,12 @@
 	{
 		public function action_index()
 		{	
-			include './modell/modell_user.php';
+			//include './modell/modell_user.php';
 			if(isset($_POST['email']) && isset($_POST['pass']))
 			{
-				$authorization = new user;
-				$authorization->confirmEmail();
-				if($authorization->confirmEmail() == false)
+				$authorization = new modell_user;
+				$result = $authorization->confirmEmail();
+				if($result == false)
 				{
 					$errors = $authorization->error;
 					echo json_encode($errors);
@@ -17,7 +17,7 @@
 				}
 				else
 				{
-					$redirect = $authorization->confirmEmail();
+					$redirect = $result;
 					$authorization->Auth();
 					echo json_encode($redirect);
 					die();
