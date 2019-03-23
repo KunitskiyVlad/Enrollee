@@ -3,6 +3,7 @@
 	/**
 	* 
 	*/
+	namespace App\Modell;
 	class modell_pagination extends modell
 	{
 		public $buttons = array();

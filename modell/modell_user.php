@@ -1,5 +1,5 @@
 <?php
-	
+namespace App\Modell;
 	class modell_user extends modell
 	{	public $user = array();
 		public $chengeData = array();

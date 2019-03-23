@@ -1,6 +1,6 @@
 <?php 
-
-
+namespace App\Config;
+use \PDO;
 	class DBApi
 		{
 			public  $pdo;

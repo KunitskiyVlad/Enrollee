@@ -1,6 +1,7 @@
 <?php
-	
-
+namespace App\Controller;
+use App\Modell\modell_list;
+use App\Modell\modell_pagination;
 	class controller_home extends controller
 	{
 		public $params = array();

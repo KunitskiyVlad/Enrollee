@@ -1,5 +1,5 @@
 <?php
-	
+namespace App\Controller;
 	class controller_authorization extends controller
 	{
 		public function action_index()

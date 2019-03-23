@@ -1,8 +1,9 @@
 <?php
-
+use App\Controller as controller;
 	class Router {
 		public static function start()
 		{
+
 			$controller ='home';
 			$action = 'index';
 			$url = explode('/',$_SERVER['REQUEST_URI']);
@@ -20,7 +21,7 @@
 				$action = $url[2];
 			}
 			
-			$controller_class = mb_strtolower('controller_'.$controller);
+			$controller_class = 'App\\Controller\\'.mb_strtolower('controller_'.$controller);
 			$action = mb_strtolower('action_'.$action);
 			//if(file_exists('controller/'.$controller_class.'.php') )
 			//{

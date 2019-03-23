@@ -1,5 +1,5 @@
 <?php
-	
+namespace App\Controller;
 	class controller_cabinet extends controller
 		{
 			public function action_index()

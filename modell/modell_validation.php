@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Modell;
 	class modell_validation extends modell
 	{
 		public $error_message = array();
