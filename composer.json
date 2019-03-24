@@ -7,7 +7,8 @@
       "App\\Controller\\":"controller/",
       "App\\View\\":"view/",
       "App\\Config\\":"config/",
-      "App\\Interface\\":"interface/"
+      "App\\Interfaces\\":"Interfaces/",
+      "App\\Http\\":"Http/"
     }
   }
 

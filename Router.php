@@ -1,16 +1,16 @@
 <?php
 use App\Controller as controller;
+use App\HTTP\Request;
 	class Router {
-		public static function start()
+		public static function start(Request $request)
 		{
 
 			$controller ='home';
 			$action = 'index';
-			$url = explode('/',$_SERVER['REQUEST_URI']);
-			$url = parse_url($_SERVER['REQUEST_URI']);
+			$url = parse_url($request->getUri());
 			//echo($url['path']);
 			if(!empty($url['path']) && $url['path'] != '/')
-			
+
 			{
 				$controller = str_replace('/', '', $url['path']);
 			}

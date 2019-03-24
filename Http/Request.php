@@ -1,6 +1,6 @@
 <?php
-namespace App\HTTP;
-class Request implements App\interfaces\Request
+namespace App\Http;
+class Request implements \App\Interfaces\Request
 {
     const method =['POST','GET','PUT','PATCH','DELETE'];
     public $get;
@@ -104,6 +104,11 @@ class Request implements App\interfaces\Request
         return $request;
     }
 
+}
+public function getHostName()
+{
+    $this->host = $_SERVER['HTTP_HOST'];
+    return $this->host;
 }
 
     public static function FactoryRequest(array $get = [], array $body = [], array $cookie = [], array $session = [], array $file = [])
