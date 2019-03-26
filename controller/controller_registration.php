@@ -3,7 +3,7 @@ namespace App\Controller;
 
 	class controller_registration extends controller
 	{
-		public function action_index()
+		public function index()
 		{
 			//include'./modell/modell_user.php';
 			if(!empty($_COOKIE['user']))

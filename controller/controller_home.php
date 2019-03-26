@@ -5,7 +5,7 @@ use App\Modell\modell_pagination;
 	class controller_home extends controller
 	{
 		public $params = array();
-		public function action_index()
+		public function index()
 		{	$TemplatePage = 'template';
 			if(isset($_COOKIE['user']))
 			{

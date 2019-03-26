@@ -2,7 +2,7 @@
 namespace App\Controller;
 	class controller_cabinet extends controller
 		{
-			public function action_index()
+			public function index()
 			{
 				//include './modell/modell_user.php';
 				$user = new modell_user;
